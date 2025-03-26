@@ -26,31 +26,52 @@ minimum and maximum student numbers, or the objective function itself.
 
 ### Sets and Indices
 
-- $S$: Set of student types, indexed by $s \in S$.
-- $R$: Set of rooms, indexed by $r \in R$.
+- ![S](https://latex.codecogs.com/svg.latex?S "S"): Set of student
+  types, indexed by
+  ![s \in S](https://latex.codecogs.com/svg.latex?s%20%5Cin%20S "s \in S").
+- ![R](https://latex.codecogs.com/svg.latex?R "R"): Set of rooms,
+  indexed by
+  ![r \in R](https://latex.codecogs.com/svg.latex?r%20%5Cin%20R "r \in R").
 
 ### Parameters
 
-- $A_r > 0$: Area available in room $r \in R$.
-- $a_s > 0$: Space required per student of type $s \in S$.
-- $v_s > 0$: Value associated with a student of type $s \in S$.
-- $o_s \in (0,1]$: Occupancy allowance per student of type $s \in S$.
-- $l_s > 0$: Minimum number of students of type $s \in S$.
-- $u_s > 0$: Maximum number of students of type $s \in S$.
+- ![A_r \> 0](https://latex.codecogs.com/svg.latex?A_r%20%3E%200 "A_r > 0"):
+  Area available in room
+  ![r \in R](https://latex.codecogs.com/svg.latex?r%20%5Cin%20R "r \in R").
+- ![a_s \> 0](https://latex.codecogs.com/svg.latex?a_s%20%3E%200 "a_s > 0"):
+  Space required per student of type
+  ![s \in S](https://latex.codecogs.com/svg.latex?s%20%5Cin%20S "s \in S").
+- ![v_s \> 0](https://latex.codecogs.com/svg.latex?v_s%20%3E%200 "v_s > 0"):
+  Value associated with a student of type
+  ![s \in S](https://latex.codecogs.com/svg.latex?s%20%5Cin%20S "s \in S").
+- ![o_s \in (0,1\]](https://latex.codecogs.com/svg.latex?o_s%20%5Cin%20%280%2C1%5D "o_s \in (0,1]"):
+  Occupancy allowance per student of type
+  ![s \in S](https://latex.codecogs.com/svg.latex?s%20%5Cin%20S "s \in S").
+- ![l_s \> 0](https://latex.codecogs.com/svg.latex?l_s%20%3E%200 "l_s > 0"):
+  Minimum number of students of type
+  ![s \in S](https://latex.codecogs.com/svg.latex?s%20%5Cin%20S "s \in S").
+- ![u_s \> 0](https://latex.codecogs.com/svg.latex?u_s%20%3E%200 "u_s > 0"):
+  Maximum number of students of type
+  ![s \in S](https://latex.codecogs.com/svg.latex?s%20%5Cin%20S "s \in S").
 
 ### Decision Variables
 
-- $y_{s,r} \in \mathbb{Z}_{\geq 0}$: Number of students of type
-  $s \in S$ assigned to room $r \in R$.
-- $z_{s,r} \in \{0,1\}$: Binary variable indicating whether room $r$ is
-  assigned to student type $s$.
+- ![y\_{s,r} \in \mathbb{Z}\_{\geq 0}](https://latex.codecogs.com/svg.latex?y_%7Bs%2Cr%7D%20%5Cin%20%5Cmathbb%7BZ%7D_%7B%5Cgeq%200%7D "y_{s,r} \in \mathbb{Z}_{\geq 0}"):
+  Number of students of type
+  ![s \in S](https://latex.codecogs.com/svg.latex?s%20%5Cin%20S "s \in S")
+  assigned to room
+  ![r \in R](https://latex.codecogs.com/svg.latex?r%20%5Cin%20R "r \in R").
+- ![z\_{s,r} \in \\0,1\\](https://latex.codecogs.com/svg.latex?z_%7Bs%2Cr%7D%20%5Cin%20%5C%7B0%2C1%5C%7D "z_{s,r} \in \{0,1\}"):
+  Binary variable indicating whether room
+  ![r](https://latex.codecogs.com/svg.latex?r "r") is assigned to
+  student type ![s](https://latex.codecogs.com/svg.latex?s "s").
 
 ### Objective Function
 
 We aim to maximize the total value of students assigned to rooms across
-the campus estate: $$
-\max \sum_{s \in S} \sum_{r \in R} v_s \, y_{s,r} \,.
-$$
+the campus estate:
+
+![\max \sum\_{s \in S} \sum\_{r \in R} v_s \\ y\_{s,r} \\.](https://latex.codecogs.com/svg.latex?%5Cmax%20%5Csum_%7Bs%20%5Cin%20S%7D%20%5Csum_%7Br%20%5Cin%20R%7D%20v_s%20%5C%2C%20y_%7Bs%2Cr%7D%20%5C%2C. "\max \sum_{s \in S} \sum_{r \in R} v_s \, y_{s,r} \,.")
 
 ### Constraints
 
@@ -61,34 +82,38 @@ constraints.
 
 This constraint ensures that the total space required by each student
 type does not exceed the room size while allowing for a study
-type-specific occupancy relaxation: $$
-\sum_{s \in S} (a_s \,o_s)\, y_{s,r} \leq A_r\,, \quad \forall r \in R \,.
-$$ In practice, this reflects that typical occupancy is below 100% for
+type-specific occupancy relaxation:
+
+![\sum\_{s \in S} (a_s \\o_s)\\ y\_{s,r} \leq A_r\\, \quad \forall r \in R \\.](https://latex.codecogs.com/svg.latex?%5Csum_%7Bs%20%5Cin%20S%7D%20%28a_s%20%5C%2Co_s%29%5C%2C%20y_%7Bs%2Cr%7D%20%5Cleq%20A_r%5C%2C%2C%20%5Cquad%20%5Cforall%20r%20%5Cin%20R%20%5C%2C. "\sum_{s \in S} (a_s \,o_s)\, y_{s,r} \leq A_r\,, \quad \forall r \in R \,.")
+
+In practice, this reflects that typical occupancy is below 100% for
 certain student types. It has the effect of reducing the space required
 per student type.
 
 #### 2. One Student Type Per Room
 
 This constraint ensures that each room can have at most one type of
-student: $$
-\sum_{s \in S} z_{s,r} \leq 1\,, \quad \forall r \in R \,.
-$$
+student:
+
+![\sum\_{s \in S} z\_{s,r} \leq 1\\, \quad \forall r \in R \\.](https://latex.codecogs.com/svg.latex?%5Csum_%7Bs%20%5Cin%20S%7D%20z_%7Bs%2Cr%7D%20%5Cleq%201%5C%2C%2C%20%5Cquad%20%5Cforall%20r%20%5Cin%20R%20%5C%2C. "\sum_{s \in S} z_{s,r} \leq 1\,, \quad \forall r \in R \,.")
 
 Additionally, if a student type is assigned to a room, the total space
-required by the students must not exceed the room’s capacity: $$
-(a_s \,o_s) \,y_{s,r} \leq z_{s,r} \, A_r\,, \quad \forall s \in S\,, \quad r \in R \,.
-$$
+required by the students must not exceed the room’s capacity:
+
+![(a_s \\o_s) \\y\_{s,r} \leq z\_{s,r} \\ A_r\\, \quad \forall s \in S\\, \quad r \in R \\.](https://latex.codecogs.com/svg.latex?%28a_s%20%5C%2Co_s%29%20%5C%2Cy_%7Bs%2Cr%7D%20%5Cleq%20z_%7Bs%2Cr%7D%20%5C%2C%20A_r%5C%2C%2C%20%5Cquad%20%5Cforall%20s%20%5Cin%20S%5C%2C%2C%20%5Cquad%20r%20%5Cin%20R%20%5C%2C. "(a_s \,o_s) \,y_{s,r} \leq z_{s,r} \, A_r\,, \quad \forall s \in S\,, \quad r \in R \,.")
 
 #### 3. Minimum and Maximum Student Counts
 
 It is desirable to specify a minimum and maximum number of students of
 each type for planning purposes. This constraint ensures that each
 student type is either greater than the specified minimum or less than
-the specified maximum count requirements: $$
-\sum_{r \in R} y_{s,r} \geq l_s\,, \quad \forall s \in S \,,
-$$ and $$
-\sum_{r \in R} y_{s,r} \leq u_s\,, \quad \forall s \in S \,.
-$$
+the specified maximum count requirements:
+
+![\sum\_{r \in R} y\_{s,r} \geq l_s\\, \quad \forall s \in S \\,](https://latex.codecogs.com/svg.latex?%5Csum_%7Br%20%5Cin%20R%7D%20y_%7Bs%2Cr%7D%20%5Cgeq%20l_s%5C%2C%2C%20%5Cquad%20%5Cforall%20s%20%5Cin%20S%20%5C%2C%2C "\sum_{r \in R} y_{s,r} \geq l_s\,, \quad \forall s \in S \,,")
+
+and
+
+![\sum\_{r \in R} y\_{s,r} \leq u_s\\, \quad \forall s \in S \\.](https://latex.codecogs.com/svg.latex?%5Csum_%7Br%20%5Cin%20R%7D%20y_%7Bs%2Cr%7D%20%5Cleq%20u_s%5C%2C%2C%20%5Cquad%20%5Cforall%20s%20%5Cin%20S%20%5C%2C. "\sum_{r \in R} y_{s,r} \leq u_s\,, \quad \forall s \in S \,.")
 
 ## Implementation in Python (PuLP)
 
@@ -98,12 +123,13 @@ on the minimum and maximum student numbers specified. This is due to the
 iterative nature of the optimisation procedure employed (it uses a
 branch-and-bound procedure to find an integer solution for each
 allocation). In the code, the problem parameters are included as two
-python dictionaries: the first details the room areas $A_r$ and the
-second contains the parameters that vary by student type
-$(a_s, v_s, o_s, l_s, u_s)$. These can be edited to update the estate
-and student type numbers and details. The model defined in the code does
-not need to be updated unless changes to the objective function or
-constraints are desired.
+python dictionaries: the first details the room areas
+![A_r](https://latex.codecogs.com/svg.latex?A_r "A_r") and the second
+contains the parameters that vary by student type
+![(a_s, v_s, o_s, l_s, u_s)](https://latex.codecogs.com/svg.latex?%28a_s%2C%20v_s%2C%20o_s%2C%20l_s%2C%20u_s%29 "(a_s, v_s, o_s, l_s, u_s)").
+These can be edited to update the estate and student type numbers and
+details. The model defined in the code does not need to be updated
+unless changes to the objective function or constraints are desired.
 
 A condensed version of the implementation is provided below. It omits
 the student data, room data, and routines for output. The full code is
